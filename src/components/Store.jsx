@@ -8,9 +8,10 @@ import { productsContext } from "../context/ProductContext";
 
 function Store() {
     const products = useContext(productsContext);
+    
     return (
         <div style={{display:'flex', flexWrap:'wrap', justifyContent: 'flex-start'}}>
-            {products.map(product => <Product key={product.id} productData = {product} />)}
+            {products.isLoading ? "LOADING..." : products.info.map(product => <Product key={product.id} productData = {product} />)}
         </div>
     )
 }

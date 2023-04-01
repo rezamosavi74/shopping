@@ -2,10 +2,16 @@ import { createContext, useReducer } from "react"
 
 const initialState = {
     selectedItems: [],
+    totalItems: 0,
 }
 
+const subCart = item => {
+    const cartItems = item.reduce((total, product) => total + product.quantity, 0)
+    return {totalItems: cartItems};
+}
+
+
 const cartReducer = (state, action) => {
-    console.log(state)
     switch (action.type) {
         case "ADD_ITEM":
             if (!state.selectedItems.find(item => item.id === action.payload.id)) {
@@ -15,24 +21,32 @@ const cartReducer = (state, action) => {
                 })
             }
             return {
-                ...state
+                ...state,
+                selectedItems: [...state.selectedItems],
+                ...subCart(state.selectedItems)
             }
         case "REMOVE":
             const newItmes = state.selectedItems.filter(item => item.id !== action.payload.id)
+            console.log([...newItmes])
             return {
-                selectedItems: [...newItmes]
+                ...state,
+                selectedItems: [...newItmes],
+                ...subCart(state.selectedItems)
             }
+            
         case "INCREASE":
             const indexI = state.selectedItems.findIndex(item => item.id === action.payload.id)
             state.selectedItems[indexI].quantity++;
             return {
-                ...state
+                ...state,
+                ...subCart(state.selectedItems)
             }
         case "DECREASE":
             const indexD = state.selectedItems.findIndex(item => item.id === action.payload.id)
             state.selectedItems[indexD].quantity--;
             return {
-                ...state
+                ...state,
+                ...subCart(state.selectedItems)
             }
         default:
             return state

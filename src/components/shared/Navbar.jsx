@@ -7,7 +7,7 @@ export const Navbar = () => {
     return (
         <div>
             <header style={{ backgroundColor: 'red', height: 50 }}>
-                <span>{cartItems.state.selectedItems.length}</span>
+                <span>{cartItems.state.totalItems}</span>
             </header>
         </div>
     )

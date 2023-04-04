@@ -4,11 +4,11 @@ import cartIcon from "../../assets/cart.svg"
 import { Link } from "react-router-dom";
 import { Fragment } from 'react'
 import { Disclosure, Menu, Transition } from '@headlessui/react'
-import { Bars3Icon, BellIcon, XMarkIcon } from '@heroicons/react/24/outline'
+import { Bars3Icon, BellIcon, XMarkIcon, ShoppingCartIcon, BarsArrowDownIcon } from '@heroicons/react/24/outline'
 
 const navigation = [
-    { name: 'Dashboard', href: '#', current: true },
-    { name: 'Team', href: '#', current: false },
+    { name: 'Products', href: '/products', current: true },
+    { name: 'Cart', href: '/cart', current: false },
     { name: 'Projects', href: '#', current: false },
     { name: 'Calendar', href: '#', current: false },
 ]
@@ -20,7 +20,7 @@ function classNames(...classes) {
 export const Navbar = () => {
     const cartItems = useContext(cartContex);
     return (
-        <Disclosure as="nav" className="bg-gray-800">
+        <Disclosure as="nav" className="bg-reed2">
             {({ open }) => (
                 <>
                     <div className="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
@@ -35,7 +35,7 @@ export const Navbar = () => {
                         <div className="relative flex h-16 items-center justify-between">
                             <div className="absolute inset-y-0 left-0 flex items-center sm:hidden">
                                 {/* Mobile menu button*/}
-                                <Disclosure.Button className="inline-flex items-center justify-center rounded-md p-2 text-gray-400 hover:bg-gray-700 hover:text-white focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white">
+                                <Disclosure.Button className="inline-flex items-center justify-center rounded-md p-2 text-reed1 hover:bg-reed4 hover:text-white focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white">
                                     <span className="sr-only">Open main menu</span>
                                     {open ? (
                                         <XMarkIcon className="block h-6 w-6" aria-hidden="true" />
@@ -64,7 +64,7 @@ export const Navbar = () => {
                                                 key={item.name}
                                                 href={item.href}
                                                 className={classNames(
-                                                    item.current ? 'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white',
+                                                    item.current ? 'bg-reed3 text-reed1' : 'text-reed1 hover:bg-reed3',
                                                     'rounded-md px-3 py-2 text-sm font-medium'
                                                 )}
                                                 aria-current={item.current ? 'page' : undefined}
@@ -78,10 +78,10 @@ export const Navbar = () => {
                             <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
                                 <button
                                     type="button"
-                                    className="rounded-full bg-gray-800 p-1 text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800"
+                                    className="rounded-full p-1 focus:outline-none"
                                 >
                                     <span className="sr-only">View notifications</span>
-                                    <BellIcon className="h-6 w-6" aria-hidden="true" />
+                                    <BellIcon className="h-8 w-8 text-reed1" aria-hidden="true" />
                                 </button>
 
                                 <button
@@ -89,25 +89,22 @@ export const Navbar = () => {
                                     className="rounded-full bg-gray-800 p-1 text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800"
                                 >
                                     <span className="sr-only">View notifications</span>
-                                    <Link to="cart" style={{ position: "relative" }}>
-                                        <img src={cartIcon} alt="cart" width={40} />
-                                        {cartItems.state.totalItems > 0 ? <span style={{ position: 'absolute', top: "-5px", right: "-5px", background: "red", minWidth: "20px", height: "20px", lineHeight: "20px", borderRadius: "6px" }}>
+                                    <Link to="cart" style={{ position: "relative", display: "block" }}>
+                                        {/* <img src={cartIcon} alt="cart" width={40} /> */}
+                                        <ShoppingCartIcon className="h-8 w-8 text-reed1" />
+                                        {cartItems.state.totalItems > 0 ? <span style={{ position: 'absolute', top: "-5px", right: "-5px", background: "#8a0f0f", color: "#efbfc6", minWidth: "20px", height: "20px", lineHeight: "14px", borderRadius: "6px", padding: "2px" }}>
                                             {cartItems.state.totalItems}
-                                        </span> : ''}
+                                        </span> : null}
 
                                     </Link>
                                 </button>
 
                                 {/* Profile dropdown */}
-                                <Menu as="div" className="relative ml-3">
+                                <Menu as="div" className="relative ml-1.5">
                                     <div>
-                                        <Menu.Button className="flex rounded-full bg-gray-800 text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
+                                        <Menu.Button className="flex rounded-full bg-gray-800 text-sm focus:outline-none">
                                             <span className="sr-only">Open user menu</span>
-                                            <img
-                                                className="h-8 w-8 rounded-full"
-                                                src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
-                                                alt=""
-                                            />
+                                            <BarsArrowDownIcon className="h-8 w-8 text-reed1" />
                                         </Menu.Button>
                                     </div>
                                     <Transition

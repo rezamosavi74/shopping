@@ -3,11 +3,14 @@ import { createContext, useReducer } from "react"
 const initialState = {
     selectedItems: [],
     totalItems: 0,
+    totalPrice: 0,
+    checkOut: false,
 }
 
 const subCart = item => {
-    const cartItems = item.reduce((total, product) => total + product.quantity, 0)
-    return {totalItems: cartItems};
+    const totalItems = item.reduce((total, product) => total + product.quantity, 0);
+    const totalPrice = item.reduce((total, product) => total + product.quantity * product.price, 0).toFixed(2);
+    return { totalItems, totalPrice };
 }
 
 
@@ -23,17 +26,18 @@ const cartReducer = (state, action) => {
             return {
                 ...state,
                 selectedItems: [...state.selectedItems],
-                ...subCart(state.selectedItems)
+                ...subCart(state.selectedItems),
+                checkOut: false
             }
         case "REMOVE":
             const newItmes = state.selectedItems.filter(item => item.id !== action.payload.id)
-            console.log([...newItmes])
             return {
                 ...state,
                 selectedItems: [...newItmes],
-                ...subCart(newItmes)
+                ...subCart(newItmes),
+                checkOut: false
             }
-            
+
         case "INCREASE":
             const indexI = state.selectedItems.findIndex(item => item.id === action.payload.id)
             state.selectedItems[indexI].quantity++;
@@ -47,6 +51,13 @@ const cartReducer = (state, action) => {
             return {
                 ...state,
                 ...subCart(state.selectedItems)
+            }
+        case "CHECKOUT":
+            return {
+                selectedItems: [],
+                totalItems: 0,
+                totalPrice: 0,
+                checkOut: true,
             }
         default:
             return state

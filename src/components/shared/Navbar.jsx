@@ -1,9 +1,10 @@
 import { useContext } from "react"
 import { cartContex } from "../../context/CartContex"
-import cartIcon from "../../assets/cart.svg"
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { Fragment } from 'react'
 import { Disclosure, Menu, Transition } from '@headlessui/react'
+
+// ICONS
 import { Bars3Icon, BellIcon, XMarkIcon, ShoppingCartIcon, BarsArrowDownIcon } from '@heroicons/react/24/outline'
 
 const navigation = [
@@ -18,7 +19,18 @@ function classNames(...classes) {
 }
 
 export const Navbar = () => {
+
+    const { pathname } = useLocation();
+    navigation.forEach(element => {
+        if (element.href === pathname) {
+            element.current = true
+        } else {
+            element.current = false
+        }
+    });
+
     const cartItems = useContext(cartContex);
+
     return (
         <Disclosure as="nav" className="bg-reed2">
             {({ open }) => (

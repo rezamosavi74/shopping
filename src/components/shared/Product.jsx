@@ -9,7 +9,7 @@ import { isInCart, quantityCount, shorten } from "../../helper/functions"
 
 // Icons
 import { TrashIcon } from "@heroicons/react/24/outline";
-import  trash  from "../../assets/trash.svg"
+import trash from "../../assets/trash.svg"
 
 
 export const Product = ({ productData }) => {
@@ -28,7 +28,7 @@ export const Product = ({ productData }) => {
                 <div>
                     <h3 className="text-sm text-gray-700 font-bold">
                         <Link to={`/products/${productData.id}`}>
-                            <span classname="">{shorten(productData.title)}
+                            <span>{shorten(productData.title)}
                             </span>
                         </Link>
                     </h3>
@@ -47,8 +47,8 @@ export const Product = ({ productData }) => {
                     {
                         quantityCount(state, productData.id) === 1 && <button className="bg-reed2 hover:bg-reed1 text-white hover:text-reed2 font-bold w-8 h-8 rounded" onClick={() => dispatch({ type: "REMOVE", payload: productData })}>
                             {/* <img className="m-auto" src={trash} width={13} alt="remove" /> */}
-                            <TrashIcon class="h-5 w-5 mx-auto text-gray-500" />
-                            </button>
+                            <TrashIcon className="h-5 w-5 mx-auto text-gray-500" />
+                        </button>
                     }
                     {
                         quantityCount(state, productData.id) > 1 && <button className="bg-reed2 hover:bg-reed1 text-white hover:text-reed2 font-bold w-8 h-8 rounded" onClick={() => dispatch({ type: "DECREASE", payload: productData })}>-</button>

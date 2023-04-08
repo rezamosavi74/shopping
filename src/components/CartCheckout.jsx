@@ -8,7 +8,7 @@ const CartCheckout = () => {
             <div className="flex flex-col w-7/12 mx-auto my-3 bg-reed1 rounded p-5">
                 <div className="flex justify-between border-b border-reed3 py-3">
                     <div>TotalItems</div>
-                    <div>{state.totalItems}fff</div>
+                    <div>{state.totalItems}</div>
                 </div>
                 <div className="flex justify-between py-3 font-bold">
                     <div>Subtotal</div>
